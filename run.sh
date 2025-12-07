@@ -16,3 +16,6 @@ docker tag fullstack-dev-env:${version} your_dockerhub_username/fullstack-dev-en
 
 # push the image to Docker Hub
 docker push your_dockerhub_username/fullstack-dev-env:${version}
+
+# Docker run
+docker run -it --name fullstack-dev-container --restart unless-stopped -v ~/workspace:/workspace -u $(id -u):$(id -g) fullstack-dev-env:${version}
