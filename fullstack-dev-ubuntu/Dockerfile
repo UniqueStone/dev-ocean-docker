@@ -11,7 +11,7 @@ RUN sed -i 's@http://.*archive.ubuntu.com@http://mirrors.aliyun.com@g' /etc/apt/
         sed -i 's@http://.*security.ubuntu.com@http://mirrors.aliyun.com@g' /etc/apt/sources.list || true
 
 RUN apt-get -qq update && \
-        apt-get -qq -y install gnupg ca-certificates curl wget git unzip tar build-essential && \
+        apt-get -qq -y install gnupg ca-certificates curl wget git unzip tar vim build-essential software-properties-common && \
         rm -rf /var/lib/apt/lists/*
 
 # ======================
@@ -38,6 +38,10 @@ RUN wget https://dlcdn.apache.org/maven/maven-3/${MAVEN_VERSION}/binaries/apache
         && tar -xzf /tmp/maven.tar.gz -C $MAVEN_HOME --strip-components=1 \
         && rm -f /tmp/maven.tar.gz
 ENV PATH="$MAVEN_HOME/bin:${PATH}"
+
+# Configure Maven
+RUN mkdir -p /root/.m2
+COPY settings.xml /root/.m2/settings.xml
 
 
 # ======================
